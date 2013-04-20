@@ -116,6 +116,7 @@ when "openid"
 else
   template "#{node[:nagios][:dir]}/htpasswd.users" do
     source "htpasswd.users.erb"
+	cookbook "nagios"
     owner "nagios"
     group node[:apache][:user]
     mode 0640
@@ -131,6 +132,7 @@ end
 
 template "#{node[:apache][:dir]}/sites-available/nagios3.conf" do
   source "apache2.conf.erb"
+  cookbook "nagios"
   mode 0644
   variables :public_domain => public_domain
   if ::File.symlink?("#{node[:apache][:dir]}/sites-enabled/nagios3.conf")
