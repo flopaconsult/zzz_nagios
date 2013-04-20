@@ -71,6 +71,7 @@ remote_directory "/usr/lib/nagios/plugins" do
   group "nagios"
   mode 0755
   files_mode 0755
+  cookbook "nagios"
 end
 
 template "/etc/nagios/nrpe.cfg" do
@@ -80,4 +81,5 @@ template "/etc/nagios/nrpe.cfg" do
   mode "0644"
   variables :mon_host => mon_host
   notifies :restart, resources(:service => "nagios-nrpe-server")
+  cookbook "nagios"
 end
