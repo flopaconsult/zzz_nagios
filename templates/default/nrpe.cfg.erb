@@ -5,8 +5,7 @@ nrpe_group=nagios
 dont_blame_nrpe=0
 debug=0
 command_timeout=60
-#this is for prod-image and prod-ftp
-#allowed_hosts=<%= @mon_host.join(',') %>
+allowed_hosts=<%= @mon_host.join(',') %>
 
 command[check_users]=/usr/lib/nagios/plugins/check_users -w 20 -c 30
 command[check_load]=/usr/lib/nagios/plugins/check_load -w <%= node[:nagios][:checks][:load][:warning] %> -c <%= node[:nagios][:checks][:load][:critical] %>
@@ -28,22 +27,3 @@ command[check_mysql_server]=/usr/lib/nagios/plugins/check_mysql -H localhost -u 
 #command[check_memcached_response]=/usr/local/bin/check_memcached -H <%= node[:ipaddress] %> -w 3 -c 5
 #command[check_memcached_size]=/usr/local/bin/check_memcached -H <%= node[:ipaddress] %> --size-warning 60 --size-critical 80
 #command[check_memcached_hit]=/usr/local/bin/check_memcached -H <%= node[:ipaddress] %> --hit-warning 40 --hit-critical 20
-
-command[check_java]=/usr/lib/nagios/plugins/check_procs -c 1:10 -C java
-command[check_jsvc]=/usr/lib/nagios/plugins/check_procs -c 1:3 -C jsvc
-command[check_apache2]=/usr/lib/nagios/plugins/check_procs -c 1:10 -C apache2
-
-#this is for prod-image and prod-ftp
-command[check_sda1]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/sda1
-command[check_sda2]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/sda2
-command[check_sdb]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/sdb
-command[check_sdh]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/sdh
-command[check_cron_proc]=/usr/lib/nagios/plugins/check_procs -c 1: -a 'cron' -u root
-
-#apache2 servers
-command[check_apache_parent_proc]=/usr/lib/nagios/plugins/check_procs -c 1: -a '/usr/sbin/apache2' -s 'Ss,S<s' -u root                                                                                                                      
-command[check_apache_child_procs]=/usr/lib/nagios/plugins/check_procs -c 1: -a '/usr/sbin/apache2' -s 'S,Sl,S<l' -u 'www-data'
-
-# Check the number of Tomcat processes running
-command[check_tomcat_procs]=/usr/lib/nagios/plugins/check_procs -c 2:2 -C jsvc -a tomcat
-

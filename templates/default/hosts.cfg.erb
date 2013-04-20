@@ -5,9 +5,8 @@
 define host {
   use server
   address <%= n['ipaddress'] %>
-##  host_name <%= n['hostname'] %>
-  host_name <%= n['environment']['name'] %>-<%= n['ec2tag']['name'] %>---<%= n['ipaddress'] %>
-  <% if n.run_list.roles.nil? -%>
+  host_name <%= n['hostname'] %>
+<% if n.run_list.roles.nil? -%>
   hostgroups all
 <% else -%>
   hostgroups <%= n.run_list.roles.to_a.join(",") %>

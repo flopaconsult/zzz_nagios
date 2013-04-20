@@ -154,15 +154,3 @@ debug_level=0
 debug_verbosity=1
 debug_file=<% node[:nagios][:state_dir] %>/nagios.debug
 max_debug_file_size=1000000
-
-
-##TODO: this should be only activated if the nagiosgraph recipe is used.
-# process nagios performance data using nagiosgraph
-#process_performance_data=1
-#service_perfdata_file=/tmp/perfdata.log
-#service_perfdata_file_template=$LASTSERVICECHECK$||$HOSTNAME$||$SERVICEDESC$||$SERVICEOUTPUT$||$SERVICEPERFDATA$
-#service_perfdata_file_mode=a
-#service_perfdata_file_processing_interval=30
-#service_perfdata_file_processing_command=process-service-perfdata-for-nagiosgraph
-
-

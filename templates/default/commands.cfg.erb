@@ -210,7 +210,7 @@ define command {
 # 'check_mysql' check mysql connectivity
 define command {
 	command_name	check_mysql
-	command_line    $USER1$/check_mysql -H $HOSTADDRESS$ -u $USER2$ -p $USER3$
+	command_line	$USER1$/check_mysql -H $ARG1$ -u nagios -p $ARG2$
 }
 
 define command {
@@ -333,73 +333,3 @@ define command {
 #        command_name process-host-perfdata
 #        command_line /usr/lib/nagios/plugins/process_perfdata.pl -d HOSTPERFDATA
 #}
-
-define command {
-	command_name	check_mysql_master_health
-	command_line	/var/lib/nagios/libexec/check_mysql_health -H $HOSTADDRESS$ --user $USER2$ --password $USER3$ --mode $ARG1$ --warning $ARG2$ --critical $ARG3$
-}
-
-# command to process nagios performance data for nagiosgraph
-define command {
-  command_name process-service-perfdata-for-nagiosgraph
-  command_line /usr/local/nagiosgraph/bin/insert.pl
-}
-
-
-###################################
-# ----- WINDOWS COMMANDS ---------#
-###################################
-
-# Base command
-define command {
-  command_name check_nt
-  command_line $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v $ARG1$ $ARG2$
-}
-
-# Client version
-define command{
-  command_name check_nt_clientversion
-  command_line $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v CLIENTVERSION
-}
-
-# Uptime
-define command{
-  command_name check_nt_uptime
-  command_line $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v UPTIME
-}
-
-# CPU Load average
-define command{
-  command_name check_nt_cpu_avg
-  command_line $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v CPULOAD -l $ARG1$
-}
-
-# Memory Usage
-define command{
-  command_name check_nt_memuse
-  command_line $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v MEMUSE -w $ARG1$ -c $ARG2$
-}
-
-# Memory Usage 2
-define command {
-  command_name check_nrpe_memuse
-  command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -p 5666 -c CheckMem -a MaxWarn=$ARG1$% MaxCrit=$ARG2$% ShowAll type=physical type=page type=virtual type=paged
-}
-
-# Paging File Usage
-define command{
-  command_name check_nt_paging_file_usage
-  command_line $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v COUNTER -l "\\Paging File(_Total)\\% Usage","Paging file usage is %.2f %%" -w 30 -c 60
-}
-
-#Check the Windows System Log for Errors
-define command{
-  command_name    check_eventvwr_sys_errors
-  command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -p 5666 -c CheckEventLog -a MaxWarn=1 MaxCrit=1 file=system "filter=generated gt -$ARG1$h AND severity = 'error'"
-}
-
-#Failure audits
-define command{
-  command_name    check_nrpe_failure_audits
-  command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -p 5666 -c CheckEventLog -a MaxWarn=1 MaxCrit=1 file='Security' "filter=generated > -$ARG1$m and type = 'auditFailure'" descriptions unique syntax='%message%'
-}
