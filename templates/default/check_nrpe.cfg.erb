@@ -1,0 +1,110 @@
+# this command runs a program $ARG1$ with arguments $ARG2$
+#define command {
+#       command_name    check_nrpe
+#       command_line    /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
+#}
+
+# this command runs a program $ARG1$ with no arguments
+define command {
+        command_name    check_nrpe
+        command_line    /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+}
+define command {
+        command_name    check_mysql_health_uptime
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode uptime --critical 10
+}
+
+define command {
+        command_name    check_mysql_connection_time
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode connection-time
+}
+
+define command {
+        command_name    check_mysql_index-usage
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode index-usage
+}
+
+define command {
+        command_name    check_mysql_qcache-hitrate
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode qcache-hitrate
+}
+
+define command {
+        command_name    check_mysql_qcache-lowmem-prunes
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode qcache-lowmem-prunes
+}
+
+define command {
+        command_name    check_mysql_myisam-keycache-hitrate
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode myisam-keycache-hitrate
+}
+
+define command {
+        command_name    check_mysql_innodb-bufferpool-hitrate
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode innodb-bufferpool-hitrate
+}
+
+define command {
+        command_name    check_mysql_tablecache-hitrate
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode tablecache-hitrate
+}
+
+define command {
+        command_name    check_mysql_tmp-disk-tables
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode tmp-disk-tables
+}
+
+define command {
+        command_name    check_mysql_slow-queries
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode slow-queries
+}
+
+define command {
+        command_name    check_mysql_long-running-procs
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode long-running-procs
+}
+
+define command {
+        command_name    check_mysql_threads-connected
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode  threads-connected
+}
+
+define command {
+        command_name    check_mysql_threads-created
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode threads-created
+}
+
+define command {
+        command_name    check_mysql_threads-running
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode threads-running
+}
+
+define command {
+        command_name    check_mysql_threads-cached
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode threads-cached
+}
+
+define command {
+        command_name    check_mysql_connects-aborted
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode connects-aborted
+}
+
+define command {
+        command_name    check_mysql_clients-aborted
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode clients-aborted
+}
+
+define command {
+        command_name    check_mysql_table-lock-contention
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode table-lock-contention
+}
+
+define command {
+        command_name    check_mysql_table-fragmentation_prod_magento
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode table-fragmentation --database magentodb
+}
+
+define command {
+        command_name    check_mysql_open-files
+        command_line    /usr/local/nagios/libexec/check_mysql_health --hostname <%= node[:ipaddress] %> --username monitoring --password monitoring --mode open-files
+}
